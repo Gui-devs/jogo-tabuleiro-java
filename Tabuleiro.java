@@ -62,28 +62,31 @@ public class Tabuleiro {
             return true;
         }
         return false;
-    }
+    } 
     public void jogarRodada(boolean modoDebug){
+        Scanner scanner = new Scanner(System.in);
         for (Jogador jogador : jogadores) {
             if(jogador.isPularRodada()){
                 jogador.setPularRodada(false);
                 System.out.println("O jogador " + jogador.getCor() + " está pulando a rodada");
                 continue;
             }
+            jogador.setJogadas(jogador.getJogadas() + 1);
             boolean repetirJogada;
             do {
                 int[] dados;
-                Scanner scanner = new Scanner(System.in);
                 if(modoDebug){
                     int opc;
                     System.out.println("Informe o numero de casas que o jogador " + jogador.getCor() + "deve ir");
                     opc = scanner.nextInt();
                     jogador.avancar(opc);
+                    casasEspeciais(jogador);
                     repetirJogada = false;
                 } else {
                     dados = jogador.getDados(random);
                     int soma = dados[0] + dados[1];
                     jogador.avancar(soma);
+                    casasEspeciais(jogador);
                     repetirJogada = (dados[0] == dados[1]);
                 }
                 System.out.println("O jogador " + " esta na casa " + jogador.getPosicao() );
@@ -93,10 +96,9 @@ public class Tabuleiro {
 
                 if(jogador.getPosicao() >= 40){
                     System.out.println("O jogador " + jogador.getCor() + " venceu !");
-                    scanner.close();
                     return;
                 }
-
+                scanner.close();
             } while (repetirJogada);
         }
     }
@@ -125,10 +127,13 @@ public class Tabuleiro {
                 if(!jogador2.equals(jogador)){
                     outroJogadores.add(jogador2);
                 }
+            }
+
                 if(outroJogadores.isEmpty()){
                     System.out.println("Nao há outros jogadores para escolher");
                     return;
                 }
+
                 for(int i = 0; i < outroJogadores.size(); i++){
                     System.out.println((i+1) + " - " + outroJogadores.get(i).getCor());
                 }
@@ -137,6 +142,26 @@ public class Tabuleiro {
                 Jogador escolhido = outroJogadores.get(escolha - 1);
                 escolhido.setPosicao(0);
                 System.out.println("O jogador " + escolhido.getCor() + " foi escolhido e esta na posição zero");
+                scanner.close();
+            
+        }
+        if(pos == 20 || pos == 35){
+            int menorPos = 40;
+            Jogador jogadorMenorPos = null;
+            for(Jogador j : jogadores){
+                if(j != jogador && j.getPosicao() < menorPos){
+                    menorPos = j.getPosicao();
+                    jogadorMenorPos = j;
+                }
+            }
+            
+            if(jogadorMenorPos != null){
+                int temp = jogador.getPosicao();
+                jogador.setPosicao(jogadorMenorPos.getPosicao());
+                jogadorMenorPos.setPosicao(temp);
+                System.out.println("O jogador " + jogador.getCor() + " caiu na casa supresa e trocou de lugar com o jogador " + jogadorMenorPos.getCor());
+            } else {
+                System.out.println("Não existem jogadores com posições menores que a do jogador " + jogador.getCor());
             }
         }
     }
