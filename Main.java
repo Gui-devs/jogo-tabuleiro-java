@@ -36,7 +36,12 @@ public class Main {
         }
         tabuleiro.adicionarJogador(jogador);
     } else if (opc == 2) {
-        
+        do {
+        tabuleiro.jogarRodada(true);
+        tabuleiro.atualizarTabuleiroVisual();
+        tabuleiro.imprimirTabuleiroVisual();
+        } while (opc != 2);
+
     } else if (opc != 3) {
         System.out.println("Opção inválida.");
     }
