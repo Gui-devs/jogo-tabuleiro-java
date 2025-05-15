@@ -1,14 +1,60 @@
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.List;
+
 public class Tabuleiro {
     private ArrayList<Jogador> jogadores; 
     private int[] casas;
     private Random random;
+    private List<Jogador>[][] tabuleiroVisual; 
+
     public Tabuleiro(){
         this.casas = new int[40];
         this.random = new Random();
         this.jogadores = new ArrayList<>(); 
+        this.tabuleiroVisual = new ArrayList[4][10];
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 10; j++) {
+                tabuleiroVisual[i][j] = new ArrayList<>();
+            }
+        }
+    }
+
+    public void atualizarTabuleiroVisual() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 10; j++) {
+                tabuleiroVisual[i][j].clear();
+            }
+        }
+        for (Jogador jogador : jogadores) {
+            if (jogador.getPosicao() >= 40) {
+                jogador.setPosicao(30);
+            }
+            int linha = jogador.getPosicao() / 10;
+            int coluna = jogador.getPosicao() % 10;
+            tabuleiroVisual[linha][coluna].add(jogador);
+        }
+    }
+
+    public void imprimirTabuleiroVisual() {
+        System.out.println("\n============= Tabuleiro Visual =============");
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 10; j++) {
+                    int numeroCasa = i * 10 + j;
+                    System.out.print(numeroCasa + ".[" + tabuleiroVisual[i][j].size() + "]\t"); 
+                }
+                System.out.println();
+            }
+        System.out.println("=================================");
+
+        System.out.println("\nLegenda dos Jogadores:");
+            for (Jogador jogador : jogadores) {
+                System.out.println(jogador.getClass().getSimpleName() + " | " + jogador.getCor() + " | Posição " + jogador.getPosicao());
+            }
+        System.out.println("=================================\n");
+
     }
     public boolean adicionarJogador(Jogador jogador){
         if(jogadores.size() < 6){
