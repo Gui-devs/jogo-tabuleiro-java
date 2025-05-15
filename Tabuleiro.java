@@ -50,7 +50,7 @@ public class Tabuleiro {
                     scanner.close();
                     return;
                 }
-
+                scanner.close();
             } while (repetirJogada);
         }
     }
@@ -91,6 +91,7 @@ public class Tabuleiro {
                 Jogador escolhido = outroJogadores.get(escolha - 1);
                 escolhido.setPosicao(0);
                 System.out.println("O jogador " + escolhido.getCor() + " foi escolhido e esta na posição zero");
+                scanner.close();
             }
         }
     }
