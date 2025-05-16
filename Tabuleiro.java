@@ -13,7 +13,7 @@ public class Tabuleiro {
         this.casas = new int[40];
         this.random = new Random();
         this.jogadores = new ArrayList<>(); 
-        this.tabuleiroVisual = new ArrayList[4][10];
+        this.tabuleiroVisual = new List[4][10];
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 10; j++) {

@@ -10,7 +10,7 @@ public class JogadorAzarado extends Jogador {
         do {
             dado1 = random.nextInt(6) + 1;
             dado2 = random.nextInt(6) + 1;
-        } while (dado1 + dado2 >= 6);
+        } while (dado1 + dado2 > 6);
         return new int[]{dado1, dado2};
     }
 }
