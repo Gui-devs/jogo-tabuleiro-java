@@ -5,7 +5,7 @@ public class JogadorNormal extends Jogador {
         super(cor);
     }
     @Override
-    public int[] getDados(Random random) {
+    public int[] rolarDados(Random random) {
         int dado1, dado2;
         dado1 = random.nextInt(6) + 1;
         dado2 = random.nextInt(6) + 1;

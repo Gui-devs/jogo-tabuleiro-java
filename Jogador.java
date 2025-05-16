@@ -13,7 +13,8 @@ import java.util.Random;
     public void avancar(int casas){
         posicao += casas;
     }
-    public abstract int[] getDados(Random random);
+    public abstract int[] rolarDados(Random random);
+
     public int getJogadas() {
         return jogadas;
     }

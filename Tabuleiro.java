@@ -83,7 +83,7 @@ public class Tabuleiro {
                     casasEspeciais(jogador);
                     repetirJogada = false;
                 } else {
-                    dados = jogador.getDados(random);
+                    dados = jogador.rolarDados(random);
                     int soma = dados[0] + dados[1];
                     jogador.avancar(soma);
                     casasEspeciais(jogador);
