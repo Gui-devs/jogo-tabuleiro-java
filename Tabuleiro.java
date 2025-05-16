@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.List;
 
 public class Tabuleiro {
@@ -64,8 +66,27 @@ public class Tabuleiro {
         return false;
     } 
     Scanner scanner = new Scanner(System.in);
+    
+    public boolean validarTiposDeJogadores() {
+    Set<Class<?>> tipos = new HashSet<>();
+    for (Jogador j : jogadores) {
+        tipos.add(j.getClass());
+    }
+    if (tipos.size() < 2) {
+        return false;
+    }
+    return true;
+}
+    public boolean inicarJogo(){
+        if(validarTiposDeJogadores()){
+            return true;
+        } else {
+            return false;
+        }
+    }
     public void jogarRodada(boolean modoDebug){
         for (Jogador jogador : jogadores) {
+        
             if (jogadores.isEmpty()) {
                 System.out.println("Adicione jogadores para poder jogar uma nova partida");
                 return;
