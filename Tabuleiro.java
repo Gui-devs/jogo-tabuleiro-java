@@ -13,10 +13,10 @@ public class Tabuleiro {
         this.casas = new int[40];
         this.random = new Random();
         this.jogadores = new ArrayList<>(); 
-        this.tabuleiroVisual = new List[4][10];
+        this.tabuleiroVisual = new List[4][11];
 
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < 11; j++) {
                 tabuleiroVisual[i][j] = new ArrayList<>();
             }
         }
@@ -24,13 +24,13 @@ public class Tabuleiro {
 
     public void atualizarTabuleiroVisual() {
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < 11; j++) {
                 tabuleiroVisual[i][j].clear();
             }
         }
         for (Jogador jogador : jogadores) {
-            if (jogador.getPosicao() >= 40) {
-                jogador.setPosicao(39);
+            if (jogador.getPosicao() >= 41) {
+                jogador.setPosicao(40);
             }
             int linha = jogador.getPosicao() / 10;
             int coluna = jogador.getPosicao() % 10;
@@ -41,7 +41,7 @@ public class Tabuleiro {
     public void imprimirTabuleiroVisual() {
         System.out.println("\n============= Tabuleiro Visual =============");
             for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 10; j++) {
+                for (int j = 0; j < 11; j++) {
                     int numeroCasa = i * 10 + j;
                     System.out.print(numeroCasa + ".[" + tabuleiroVisual[i][j].size() + "]\t"); 
                 }
@@ -65,37 +65,51 @@ public class Tabuleiro {
     } 
     Scanner scanner = new Scanner(System.in);
     public void jogarRodada(boolean modoDebug){
-        for (Jogador jogador : jogadores) {
             if (jogadores.isEmpty()) {
                 System.out.println("Adicione jogadores para poder jogar uma nova partida");
                 return;
             }
+
+            for (Jogador jogador : jogadores) {
             if(jogador.isPularRodada()){
                 jogador.setPularRodada(false);
                 System.out.println("O jogador " + jogador.getCor() + " está pulando a rodada");
                 continue;
             }
+
             jogador.setJogadas(jogador.getJogadas() + 1);
             boolean repetirJogada;
+
             do {
-                int[] dados;
+                int[] dados = null;
+                int soma = 0;
+
                 if(modoDebug){
                     int opc;
-                    System.out.println("Informe o numero de casas que o jogador " + jogador.getCor() + "deve ir");
+                    System.out.println("=============================================");
+                    System.out.println("Informe o numero de casas que o jogador " + jogador.getCor() + " deve ir");
                     opc = scanner.nextInt();
                     jogador.avancar(opc);
-                      if(jogador.getPosicao() >= 40){
+
+                      if(jogador.getPosicao() >= 41){
                             System.out.println("O jogador " + jogador.getCor() + " venceu !");
                             return;
                         }
                     casasEspeciais(jogador);
                     repetirJogada = false;
                 } else {
+                    System.out.println("=============================================");
+                    System.out.println("Turno do jogador: " + jogador.getCor());
+                    System.out.println("Pressione ENTER para jogar");
+                    scanner.nextLine(); 
                     dados = jogador.rolarDados(random);
-                    int soma = dados[0] + dados[1];
+                    soma = dados[0] + dados[1];
+                    System.out.println("Dados rolados: " + dados[0] + " + " + dados[1] + " = " + soma);
                     jogador.avancar(soma);
-                      if(jogador.getPosicao() >= 40){
+                
+                      if(jogador.getPosicao() >= 41){
                             System.out.println("O jogador " + jogador.getCor() + " venceu !");
+                    
                             return;
                         }
                     casasEspeciais(jogador);
@@ -107,7 +121,8 @@ public class Tabuleiro {
                 }
             } while (repetirJogada);
         }
-    }
+        }
+
     public void casasEspeciais(Jogador jogador){
         int pos = jogador.getPosicao();
         if(pos == 10 || pos == 25 || pos == 38){
