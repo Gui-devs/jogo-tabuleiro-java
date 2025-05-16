@@ -7,7 +7,7 @@ public class JogadorSortudo extends Jogador {
     @Override
     public int[] rolarDados(Random random) {
         int dado1, dado2;
-        do {
+        do { 
             dado1 = random.nextInt(6) + 1;
             dado2 = random.nextInt(6) + 1;
         } while (dado1 + dado2 >= 7);

@@ -30,7 +30,7 @@ public class Tabuleiro {
         }
         for (Jogador jogador : jogadores) {
             if (jogador.getPosicao() >= 40) {
-                jogador.setPosicao(30);
+                jogador.setPosicao(39);
             }
             int linha = jogador.getPosicao() / 10;
             int coluna = jogador.getPosicao() % 10;
@@ -63,9 +63,13 @@ public class Tabuleiro {
         }
         return false;
     } 
+    Scanner scanner = new Scanner(System.in);
     public void jogarRodada(boolean modoDebug){
-        Scanner scanner = new Scanner(System.in);
         for (Jogador jogador : jogadores) {
+            if(jogador.getPosicao() >= 40){
+                System.out.println("O jogador " + jogador.getCor() + " venceu !");
+                return;
+            }
             if(jogador.isPularRodada()){
                 jogador.setPularRodada(false);
                 System.out.println("O jogador " + jogador.getCor() + " está pulando a rodada");
@@ -89,16 +93,10 @@ public class Tabuleiro {
                     casasEspeciais(jogador);
                     repetirJogada = (dados[0] == dados[1]);
                 }
-                System.out.println("O jogador " + " esta na casa " + jogador.getPosicao() );
+                System.out.println("O jogador " + jogador.getCor()  + " esta na casa " + jogador.getPosicao() );
                 if(repetirJogada){
-                    System.out.println("O jogador tirou valores igusis e jogará novamente");
+                    System.out.println("O jogador" + jogador.getCor() + " tirou valores igusis e jogará novamente");
                 }
-
-                if(jogador.getPosicao() >= 40){
-                    System.out.println("O jogador " + jogador.getCor() + " venceu !");
-                    return;
-                }
-                scanner.close();
             } while (repetirJogada);
         }
     }
@@ -106,7 +104,7 @@ public class Tabuleiro {
         int pos = jogador.getPosicao();
         if(pos == 10 || pos == 25 || pos == 38){
             jogador.setPularRodada(true);
-            System.out.println("O jogador caiu na casa " + pos + " e vai pular a rodada");
+            System.out.println("O jogador" + jogador.getCor() + " caiu na casa " + pos + " e vai pular a rodada");
         }
         if(pos == 13){
             System.out.println("Casa Surpresa !");
@@ -174,15 +172,19 @@ public class Tabuleiro {
         switch (sorteio) {
             case 1:
                 novoJogador = new JogadorNormal(cor);
-                System.out.println("Carta sorteada: jogador normal !");                
+                System.out.println("Carta sorteada: jogador normal !");
+                System.out.println("O jogador " + novoJogador.getCor() + " agora é um jogador normal !");                
                 break;
             case 2:
                 novoJogador = new JogadorSortudo(cor);
                 System.out.println("Carta sorteada: jogador sortudo !");
+                System.out.println("O jogador " + novoJogador.getCor() + " agora é um jogador sortudo !");                
+
                 break;
             case 3: 
                 novoJogador = new JogadorAzarado(cor);
-                System.out.println("Carta sorteada: jogador azarado");
+                System.out.println("Carta sorteada: jogador azarado !");
+                System.out.println("O jogador " + novoJogador.getCor() + " agora é um jogador azarado !");                
 
             default:
                 break;

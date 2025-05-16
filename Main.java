@@ -36,11 +36,20 @@ public class Main {
         }
         tabuleiro.adicionarJogador(jogador);
     } else if (opc == 2) {
+        int opc2;
         do {
-        tabuleiro.jogarRodada(true);
-        tabuleiro.atualizarTabuleiroVisual();
-        tabuleiro.imprimirTabuleiroVisual();
-        } while (opc != 2);
+        System.out.println("1 - Inserir Casa\n2 - Rolar Dados");
+        opc2 = scanner.nextInt();
+        if (opc2 == 1) {
+            tabuleiro.jogarRodada(true);
+            tabuleiro.atualizarTabuleiroVisual();
+            tabuleiro.imprimirTabuleiroVisual();
+        } else if (opc2 == 2) {
+            tabuleiro.jogarRodada(false);
+            tabuleiro.atualizarTabuleiroVisual();
+            tabuleiro.imprimirTabuleiroVisual();
+        }
+        } while (opc2 != 2);
 
     } else if (opc != 3) {
         System.out.println("Opção inválida.");
