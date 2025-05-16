@@ -66,8 +66,8 @@ public class Tabuleiro {
     Scanner scanner = new Scanner(System.in);
     public void jogarRodada(boolean modoDebug){
         for (Jogador jogador : jogadores) {
-            if(jogador.getPosicao() >= 40){
-                System.out.println("O jogador " + jogador.getCor() + " venceu !");
+            if (jogadores.isEmpty()) {
+                System.out.println("Adicione jogadores para poder jogar uma nova partida");
                 return;
             }
             if(jogador.isPularRodada()){
@@ -84,12 +84,20 @@ public class Tabuleiro {
                     System.out.println("Informe o numero de casas que o jogador " + jogador.getCor() + "deve ir");
                     opc = scanner.nextInt();
                     jogador.avancar(opc);
+                      if(jogador.getPosicao() >= 40){
+                            System.out.println("O jogador " + jogador.getCor() + " venceu !");
+                            return;
+                        }
                     casasEspeciais(jogador);
                     repetirJogada = false;
                 } else {
                     dados = jogador.rolarDados(random);
                     int soma = dados[0] + dados[1];
                     jogador.avancar(soma);
+                      if(jogador.getPosicao() >= 40){
+                            System.out.println("O jogador " + jogador.getCor() + " venceu !");
+                            return;
+                        }
                     casasEspeciais(jogador);
                     repetirJogada = (dados[0] == dados[1]);
                 }
@@ -135,13 +143,10 @@ public class Tabuleiro {
                 for(int i = 0; i < outroJogadores.size(); i++){
                     System.out.println((i+1) + " - " + outroJogadores.get(i).getCor());
                 }
-                Scanner scanner = new Scanner(System.in);
                 int escolha = scanner.nextInt();
                 Jogador escolhido = outroJogadores.get(escolha - 1);
                 escolhido.setPosicao(0);
                 System.out.println("O jogador " + escolhido.getCor() + " foi escolhido e esta na posição zero");
-                scanner.close();
-            
         }
         if(pos == 20 || pos == 35){
             int menorPos = 40;
