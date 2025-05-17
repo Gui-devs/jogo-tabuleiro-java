@@ -1,5 +1,5 @@
 import java.util.Random; 
- abstract class Jogador {
+ public abstract class Jogador {
     protected String cor;
     protected int posicao;
     protected boolean pularRodada;
