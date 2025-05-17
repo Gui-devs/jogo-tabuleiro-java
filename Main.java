@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 public class Main {
@@ -11,8 +10,10 @@ public class Main {
         coresDisponiveis.addAll(Arrays.asList("Vermelho", "Verde", "Azul", "Amarelo", "Preto", "Branco"));
         int opcCor;
         do {
-    System.out.println("=============================================");
-    System.out.println("        1- Adicionar Jogador");        
+            System.out.println("=============================================");
+            if(tabuleiro.getJogadores().size() < 6){
+                System.out.println("        1- Adicionar Jogador");
+            }        
     System.out.println("        2- Jogar");
     System.out.println("        3- Sair");        
     System.out.println("=============================================");
@@ -71,7 +72,35 @@ public class Main {
         }
         } while (opc2 != 2);
     } else {
+        String escolhaFeita = tabuleiro.getJogadores().get(5).getCor();
+        tabuleiro.getJogadores().remove(tabuleiro.getJogadores().get(5));
         System.out.println("Escolha novos tipos de jogadores!");
+        System.out.println("=============================================");
+        System.out.println("O jogador de novo tipo substituirá o último jogador escolhido !");
+        System.out.println("=============================================");
+        System.out.println("=============================================");
+        System.out.println(" - Qual o tipo do jogador ?");
+        System.out.println("   1 - Azarado\n   2 - Sortudo\n   3 - Normal ");
+        System.out.println("=============================================");
+        opcTipo = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("A cor do jogador de novo tipo é: " + escolhaFeita);
+        Jogador jogador = null;
+        switch (opcTipo) {
+            case 1:
+                jogador = new JogadorAzarado(escolhaFeita);
+                break;
+            case 2:
+                jogador = new JogadorSortudo(escolhaFeita);
+                break;
+            case 3:
+                jogador = new JogadorNormal(escolhaFeita);
+                break;
+            default:
+                System.out.println("Opção de tipo inválida.");
+                continue;
+        }
+        tabuleiro.adicionarJogador(jogador);
     }
     } else if (opc != 3) {
         System.out.println("Opção inválida.");
