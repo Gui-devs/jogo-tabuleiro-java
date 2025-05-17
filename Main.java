@@ -9,16 +9,16 @@ public class Main {
         ArrayList<String> coresDisponiveis = new ArrayList<>();
         coresDisponiveis.addAll(Arrays.asList("Vermelho", "Verde", "Azul", "Amarelo", "Preto", "Branco"));
         int opcCor;
+        boolean flagAd = true;
         do {
             System.out.println("=============================================");
-            if(tabuleiro.getJogadores().size() < 6){
+            if(tabuleiro.getJogadores().size() < 6 && flagAd){
                 System.out.println("        1- Adicionar Jogador");
             }        
     System.out.println("        2- Jogar");
     System.out.println("        3- Sair");        
     System.out.println("=============================================");
     opc = scanner.nextInt();
-
     if (opc == 1) {
         System.out.println("=============================================");
         System.out.println(" - Qual o tipo do jogador ?");
@@ -54,6 +54,7 @@ public class Main {
         }
         tabuleiro.adicionarJogador(jogador);
     } else if (opc == 2) {
+        flagAd = false;
         int opc2;
         if(tabuleiro.inicarJogo()){
         do {
