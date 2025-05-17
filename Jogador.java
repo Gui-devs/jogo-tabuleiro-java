@@ -1,5 +1,5 @@
 import java.util.Random; 
- public abstract class Jogador {
+public abstract class Jogador {
     protected String cor;
     protected int posicao;
     protected boolean pularRodada;
@@ -15,6 +15,7 @@ import java.util.Random;
     }
     public abstract int[] rolarDados(Random random);
 
+    // métodos getters e setters
     public int getJogadas() {
         return jogadas;
     }
