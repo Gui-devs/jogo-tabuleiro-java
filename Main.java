@@ -54,6 +54,7 @@ public class Main {
         tabuleiro.adicionarJogador(jogador);
     } else if (opc == 2) {
         int opc2;
+        if(tabuleiro.inicarJogo()){
         do {
         System.out.println("=============================================");
         System.out.println("1 - Inserir Casa\n2 - Rolar Dados");
@@ -69,7 +70,9 @@ public class Main {
             tabuleiro.imprimirTabuleiroVisual();
         }
         } while (opc2 != 2);
-
+    } else {
+        System.out.println("Escolha novos tipos de jogadores!");
+    }
     } else if (opc != 3) {
         System.out.println("Opção inválida.");
     }
