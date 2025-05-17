@@ -1,0 +1,20 @@
+import java.util.List;
+
+public class CasaSorte extends Casa{
+    public CasaSorte(int indiceCasa){
+        super(indiceCasa);
+    }
+    @Override
+    public void aplicarEfeito(Jogador jogador, List<Jogador> jogadores){
+        if(!(jogador instanceof JogadorAzarado)){
+            jogador.avancar(3);
+            System.out.println(" O jogador " + jogador.getCor() +" Caiu na casa da sorte e andou tres casa a frente");
+        } else {
+            System.out.println("O jogador  " + jogador.getCor() + " é azarado e nao pode andar tres casas a frente");
+        }
+    }
+}
+
+// 5, 15 e 30:
+// Casas da sorte: ande 3 casas para frente desde que ele não seja um jogador
+// azarado;

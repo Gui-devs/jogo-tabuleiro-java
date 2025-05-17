@@ -1,5 +1,6 @@
 import java.util.Random;
 
+
 public class JogadorAzarado extends Jogador {
     public JogadorAzarado(String cor){
         super(cor);

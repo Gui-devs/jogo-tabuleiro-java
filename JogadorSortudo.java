@@ -1,4 +1,6 @@
+
 import java.util.Random;
+
 
 public class JogadorSortudo extends Jogador {
     public JogadorSortudo(String cor){
