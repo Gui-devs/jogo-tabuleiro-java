@@ -17,7 +17,7 @@ public class Tabuleiro {
 
 
     public Tabuleiro(){
-        this.casas = new int[40];
+        this.casas = new int[41];
         this.random = new Random();
         this.jogadores = new ArrayList<>(); 
 
@@ -37,12 +37,18 @@ public class Tabuleiro {
             }
         }
         for (Jogador jogador : jogadores) {
-            if (jogador.getPosicao() >= 41) {
+            if (jogador.getPosicao() >= 40) {
                 jogador.setPosicao(40);
             }
-            int linha = jogador.getPosicao() / 10;
-            int coluna = jogador.getPosicao() % 10;
-            tabuleiroVisual[linha][coluna].add(jogador);
+            if(jogador.getPosicao()<40){
+                int linha = jogador.getPosicao() / 10;
+                int coluna = jogador.getPosicao() % 10;
+                tabuleiroVisual[linha][coluna].add(jogador);
+            }
+            else{
+                tabuleiroVisual[3][9].add(jogador);
+            }
+
         }
     }
 
@@ -117,8 +123,8 @@ public class Tabuleiro {
                     opc = scanner.nextInt();
                     jogador.avancar(opc);
 
-                      if(jogador.getPosicao() >= 41){
-                            System.out.println("O jogador " + jogador.getCor() + " venceu !");
+                      if(jogador.getPosicao() >= 40){
+                            vencer(jogador, jogadores);
                             return;
                         }
                     casasEspeciais(jogador, jogadores);
@@ -133,9 +139,8 @@ public class Tabuleiro {
                     System.out.println("Dados rolados: " + dados[0] + " + " + dados[1] + " = " + soma);
                     jogador.avancar(soma);
                 
-                      if(jogador.getPosicao() >= 41){
-                            System.out.println("O jogador " + jogador.getCor() + " venceu !");
-                    
+                      if(jogador.getPosicao() >= 40){
+                            vencer(jogador, jogadores);
                             return;
                         }
                     casasEspeciais(jogador, jogadores);
@@ -149,6 +154,15 @@ public class Tabuleiro {
         }
 
     }
+    private void vencer(Jogador jogador, ArrayList<Jogador> jogadores){
+        System.out.println("=============================================");
+        System.out.println("O jogador " + jogador.getCor() + " venceu !");
+        for(int i = 0; i < jogadores.size();  i++){
+            System.out.println("Número de jogadas do jogador " + jogadores.get(i).getCor() + ": " +jogadores.get(i).getJogadas());
+        }
+        System.out.println("=============================================");
+    }
+
     public void casasEspeciais(Jogador jogador, ArrayList<Jogador> jogadores){
 
         int pos = jogador.getPosicao();
