@@ -17,14 +17,14 @@ public class Tabuleiro {
 
 
     public Tabuleiro(){
-        this.casas = new int[41];
+        this.casas = new int[40];
         this.random = new Random();
         this.jogadores = new ArrayList<>(); 
 
-        this.tabuleiroVisual = new List[4][11];
+        this.tabuleiroVisual = new List[4][10];
 
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 11; j++) {
+            for (int j = 0; j < 10; j++) {
                 tabuleiroVisual[i][j] = new ArrayList<>();
             }
         }
@@ -32,7 +32,7 @@ public class Tabuleiro {
 
     public void atualizarTabuleiroVisual() {
         for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 11; j++) {
+            for (int j = 0; j < 10; j++) {
                 tabuleiroVisual[i][j].clear();
             }
         }
@@ -45,22 +45,25 @@ public class Tabuleiro {
                 int coluna = jogador.getPosicao() % 10;
                 tabuleiroVisual[linha][coluna].add(jogador);
             }
-            else{
-                tabuleiroVisual[3][9].add(jogador);
-            }
-
         }
     }
 
     public void imprimirTabuleiroVisual() {
         System.out.println("\n============= Tabuleiro Visual =============");
             for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 11; j++) {
+                for (int j = 0; j < 10; j++) {
                     int numeroCasa = i * 10 + j;
                     System.out.print(numeroCasa + ".[" + tabuleiroVisual[i][j].size() + "]\t"); 
                 }
                 System.out.println();
             }
+            int jogadoresNaCasa40 = 0;
+                for (Jogador jogador : jogadores) {
+                  if (jogador.getPosicao() == 40) {
+                    jogadoresNaCasa40++;
+                    }
+                }
+        System.out.println("40.[" + jogadoresNaCasa40 + "]");
         System.out.println("=================================");
 
         System.out.println("\nLegenda dos Jogadores:");
