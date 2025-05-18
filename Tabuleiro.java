@@ -98,6 +98,15 @@ public class Tabuleiro {
             return false;
         }
     }
+    public Jogador verificarVencedor() {
+    for (Jogador jogador : jogadores) {
+        if (jogador.getPosicao() >= casas.length - 1) {
+            return jogador;
+        }
+    }
+    return null;
+}
+
     public void jogarRodada(boolean modoDebug){
             if (jogadores.isEmpty()) {
                 System.out.println("Adicione jogadores para poder jogar uma nova partida");
