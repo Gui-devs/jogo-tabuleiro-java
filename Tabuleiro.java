@@ -7,19 +7,17 @@ import java.util.Set;
 import java.util.List;
 
 public class Tabuleiro {
-    private ArrayList<Jogador> jogadores; 
+    private ArrayList<Jogador> jogadores;
     private int[] casas;
     private Random random;
-    private List<Jogador>[][] tabuleiroVisual; 
-    
-    
+    private List<Jogador>[][] tabuleiroVisual;
+
     // private CasaSorte casaSorte = new CasaSorte(1);
 
-
-    public Tabuleiro(){
+    public Tabuleiro() {
         this.casas = new int[40];
         this.random = new Random();
-        this.jogadores = new ArrayList<>(); 
+        this.jogadores = new ArrayList<>();
 
         this.tabuleiroVisual = new List[4][10];
 
@@ -40,7 +38,7 @@ public class Tabuleiro {
             if (jogador.getPosicao() >= 40) {
                 jogador.setPosicao(40);
             }
-            if(jogador.getPosicao()<40){
+            if (jogador.getPosicao() < 40) {
                 int linha = jogador.getPosicao() / 10;
                 int coluna = jogador.getPosicao() % 10;
                 tabuleiroVisual[linha][coluna].add(jogador);
@@ -49,38 +47,42 @@ public class Tabuleiro {
     }
 
     public void imprimirTabuleiroVisual() {
-        System.out.println("\n============= Tabuleiro Visual =============");
-            for (int i = 0; i < 4; i++) {
-                for (int j = 0; j < 10; j++) {
-                    int numeroCasa = i * 10 + j;
-                    System.out.print(numeroCasa + ".[" + tabuleiroVisual[i][j].size() + "]\t"); 
-                }
-                System.out.println();
+        System.out.println("\n========================== Tabuleiro Visual ==========================");
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 10; j++) {
+                int numeroCasa = i * 10 + j;
+                System.out.print(numeroCasa + ".[" + tabuleiroVisual[i][j].size() + "]\t");
             }
-            int jogadoresNaCasa40 = 0;
-                for (Jogador jogador : jogadores) {
-                  if (jogador.getPosicao() == 40) {
-                    jogadoresNaCasa40++;
-                    }
-                }
+            System.out.println();
+        }
+        int jogadoresNaCasa40 = 0;
+        for (Jogador jogador : jogadores) {
+            if (jogador.getPosicao() == 40) {
+                jogadoresNaCasa40++;
+            }
+        }
         System.out.println("40.[" + jogadoresNaCasa40 + "]");
-        System.out.println("=================================");
+        System.out.println("==================================================================");
 
         System.out.println("\nLegenda dos Jogadores:");
-            for (Jogador jogador : jogadores) {
-                System.out.println(jogador.getClass().getSimpleName() + " | " + jogador.getCor() + " | Posição " + jogador.getPosicao());
-            }
-        System.out.println("=================================\n");
+        for (Jogador jogador : jogadores) {
+            System.out.println(jogador.getClass().getSimpleName() + " | " + jogador.getCor() + " | Posição "
+                    + jogador.getPosicao());
+        }
+        System.out.println("==================================================================\n");
 
     }
-    public boolean adicionarJogador(Jogador jogador){
-        if(jogadores.size() < 6){
+
+    public boolean adicionarJogador(Jogador jogador) {
+        if (jogadores.size() < 6) {
             jogadores.add(jogador);
             return true;
         }
         return false;
-    } 
+    }
+
     Scanner scanner = new Scanner(System.in);
+
     public boolean validarTiposDeJogadores() {
         Set<Class<?>> tipos = new HashSet<>();
         for (Jogador j : jogadores) {
@@ -90,22 +92,24 @@ public class Tabuleiro {
             return false;
         }
         return true;
-}
-    public boolean inicarJogo(){
-        if(validarTiposDeJogadores()){
+    }
+
+    public boolean inicarJogo() {
+        if (validarTiposDeJogadores()) {
             return true;
         } else {
             return false;
         }
     }
-    public void jogarRodada(boolean modoDebug){
-            if (jogadores.isEmpty()) {
-                System.out.println("Adicione jogadores para poder jogar uma nova partida");
-                return;
-            }
-            
-            for (Jogador jogador : jogadores) {
-            if(jogador.isPularRodada()){
+
+    public void jogarRodada(boolean modoDebug) {
+        if (jogadores.isEmpty()) {
+            System.out.println("Adicione jogadores para poder jogar uma nova partida");
+            return;
+        }
+
+        for (Jogador jogador : jogadores) {
+            if (jogador.isPularRodada()) {
                 jogador.setPularRodada(false);
                 System.out.println("O jogador " + jogador.getCor() + " está pulando a rodada");
                 continue;
@@ -118,94 +122,101 @@ public class Tabuleiro {
                 int[] dados = null;
                 int soma = 0;
 
-                if(modoDebug){
+                if (modoDebug) {
                     int opc;
-            
-                    System.out.println("=============================================");
+
+                    System.out.println("==================================================================");
                     System.out.println("Informe o numero de casas que o jogador " + jogador.getCor() + " deve ir");
                     opc = scanner.nextInt();
                     jogador.avancar(opc);
 
-                      if(jogador.getPosicao() >= 40){
-                            vencer(jogador, jogadores);
-                            return;
-                        }
+                    if (jogador.getPosicao() >= 40) {
+                        vencer(jogador, jogadores);
+                        return;
+                    }
                     casasEspeciais(jogador, jogadores);
                     repetirJogada = false;
                 } else {
-                    System.out.println("=============================================");
+                    System.out.println("==================================================================");
                     System.out.println("Turno do jogador: " + jogador.getCor());
                     System.out.println("Pressione ENTER para jogar");
-                    scanner.nextLine(); 
+                    scanner.nextLine();
                     dados = jogador.rolarDados(random);
                     soma = dados[0] + dados[1];
                     System.out.println("Dados rolados: " + dados[0] + " + " + dados[1] + " = " + soma);
                     jogador.avancar(soma);
-                
-                      if(jogador.getPosicao() >= 40){
-                            vencer(jogador, jogadores);
-                            return;
-                        }
+
+                    if (jogador.getPosicao() >= 40) {
+                        vencer(jogador, jogadores);
+                        return;
+                    }
                     casasEspeciais(jogador, jogadores);
                     repetirJogada = (dados[0] == dados[1]);
                 }
-                System.out.println("O jogador " + jogador.getCor()  + " esta na casa " + jogador.getPosicao() );
-                if(repetirJogada){
+                System.out.println("O jogador " + jogador.getCor() + " esta na casa " + jogador.getPosicao());
+                if (repetirJogada) {
                     System.out.println("O jogador " + jogador.getCor() + " tirou valores iguais e jogará novamente");
                 }
             } while (repetirJogada);
         }
 
     }
-    private void vencer(Jogador jogador, ArrayList<Jogador> jogadores){
-        System.out.println("=============================================");
+
+    private void vencer(Jogador jogador, ArrayList<Jogador> jogadores) {
+        System.out.println("==================================================================");
         System.out.println("O jogador " + jogador.getCor() + " venceu !");
-        for(int i = 0; i < jogadores.size();  i++){
-            System.out.println("Número de jogadas do jogador " + jogadores.get(i).getCor() + ": " +jogadores.get(i).getJogadas());
+        for (int i = 0; i < jogadores.size(); i++) {
+            System.out.println(
+                    "Número de jogadas do jogador " + jogadores.get(i).getCor() + ": " + jogadores.get(i).getJogadas());
         }
-        System.out.println("=============================================");
+        System.out.println("==================================================================");
     }
 
-    public void casasEspeciais(Jogador jogador, ArrayList<Jogador> jogadores){
+    public void casasEspeciais(Jogador jogador, ArrayList<Jogador> jogadores) {
 
         int pos = jogador.getPosicao();
-        if(pos == 10 || pos == 25 || pos == 38){
+        if (pos == 10 || pos == 25 || pos == 38) {
             CasaStop casaStop = new CasaStop(pos);
             casaStop.aplicarEfeito(jogador, jogadores);
         }
-        if(pos == 13){
+        if (pos == 13) {
             CasaSurpresa casaSurpresa = new CasaSurpresa(pos);
             casaSurpresa.aplicarEfeito(jogador, jogadores);
         }
-        if(pos == 5 || pos == 15 || pos == 30){
+        if (pos == 5 || pos == 15 || pos == 30) {
             CasaSorte casaSorte = new CasaSorte(pos);
             casaSorte.aplicarEfeito(jogador, jogadores);
         }
-        if(pos == 17 || pos == 27){
-                CasaVolta casaVolta = new CasaVolta(pos);
-                casaVolta.aplicarEfeito(jogador, jogadores);
+        if (pos == 17 || pos == 27) {
+            CasaVolta casaVolta = new CasaVolta(pos);
+            casaVolta.aplicarEfeito(jogador, jogadores);
         }
-        if(pos == 20 || pos == 35){
+        if (pos == 20 || pos == 35) {
             CasaMagica casaMagica = new CasaMagica(pos);
-            casaMagica.aplicarEfeito( jogador, jogadores);
+            casaMagica.aplicarEfeito(jogador, jogadores);
         }
     }
-    
+
     public int[] getCasas() {
         return casas;
     }
+
     public void setCasas(int[] casas) {
         this.casas = casas;
     }
+
     public Random getRandom() {
         return random;
     }
+
     public void setRandom(Random random) {
         this.random = random;
     }
+
     public ArrayList<Jogador> getJogadores() {
         return jogadores;
     }
+
     public void setJogadores(ArrayList<Jogador> jogadores) {
         this.jogadores = jogadores;
     }
