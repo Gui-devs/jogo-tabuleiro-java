@@ -128,17 +128,26 @@ public class Tabuleiro {
                 int soma = 0;
 
                 if(modoDebug){
-                    int opc;
-            
+                    int opc = -1;
+                    while (opc < 0) {
                     System.out.println("=============================================");
-                    System.out.println("Informe o numero de casas que o jogador " + jogador.getCor() + " deve ir");
-                    opc = scanner.nextInt();
+                    System.out.print("Informe o número de casas que o jogador " + jogador.getCor() + " deve avançar: ");
+                    String entrada = scanner.nextLine();
+                    try {
+                        opc = Integer.parseInt(entrada);
+                        if (opc < 0) {
+                            System.out.println("Digite um número positivo.");
+                        }
+                    } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida. Digite apenas números inteiros.");
+                        }
+                    }   
                     jogador.avancar(opc);
 
-                      if(jogador.getPosicao() >= 40){
-                            vencer(jogador, jogadores);
-                            return;
-                        }
+                    if(jogador.getPosicao() >= 40){
+                        vencer(jogador, jogadores);
+                        return;
+                    }
                     casasEspeciais(jogador, jogadores);
                     repetirJogada = false;
                 } else {

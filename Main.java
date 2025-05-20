@@ -17,10 +17,19 @@ public class Main {
             vencedor = tabuleiro.verificarVencedor();
             System.out.println("=============================================");
             if (tabuleiro.getJogadores().size() < 6 && flagAd) {
-                System.out.println("        1- Adicionar Jogador");}
-            if(vencedor == null){System.out.println("        2- Jogar");}
+                System.out.println("        1- Adicionar Jogador");
+            }
+            if(vencedor == null){
+                System.out.println("        2- Jogar");
+            }
             System.out.println("        3- Sair");
             System.out.println("=============================================");
+            System.out.print("Escolha uma opção: ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Entrada inválida. Digite apenas números.");
+                scanner.nextLine();
+                System.out.print("Escolha uma opção: ");
+            }
             opc = scanner.nextInt();
 
             if (opc == 1) {
@@ -28,19 +37,43 @@ public class Main {
                 System.out.println(" - Qual o tipo do jogador ?");
                 System.out.println("   1 - Azarado\n   2 - Sortudo\n   3 - Normal ");
                 System.out.println("=============================================");
+                System.out.print("Escolha uma opção: ");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Entrada inválida. Digite apenas números.");
+                    scanner.nextLine();
+                    System.out.print("Escolha uma opção: ");
+                }
                 opcTipo = scanner.nextInt();
                 scanner.nextLine(); // consumir quebra de linha
+
                 System.out.println("=============================================");
                 System.out.println("Qual a cor do jogador ?");
                 for (int i = 0; i < coresDisponiveis.size(); i++) {
                     System.out.println((i + 1) + " - " + coresDisponiveis.get(i));
                 }
                 System.out.println("=============================================");
-                opcCor = scanner.nextInt();
-                String escolhaFeita = coresDisponiveis.get(opcCor - 1);
-                coresDisponiveis.remove(opcCor - 1);
+                System.out.print("Escolha uma cor: ");
+                while (true) {
+                     if (!scanner.hasNextInt()) {
+                        System.out.println("Entrada inválida. Digite apenas números.");
+                        scanner.nextLine();
+                        System.out.print("Escolha uma cor: ");
+                        continue;
+                    }
+                    opcCor = scanner.nextInt();
+                    scanner.nextLine(); // consumir o '\n'
 
-                Jogador jogador = null;
+                    if (opcCor < 1 || opcCor > coresDisponiveis.size()) {
+                        System.out.println("Número inválido. Escolha uma cor disponível na lista.");
+                        System.out.print("Escolha uma cor: ");
+                        continue;
+                    }
+                    break;
+                }  
+
+            String escolhaFeita = coresDisponiveis.get(opcCor - 1);
+            coresDisponiveis.remove(opcCor - 1);
+            Jogador jogador = null;
                 switch (opcTipo) {
                     case 1:
                         jogador = new JogadorAzarado(escolhaFeita);
@@ -64,19 +97,27 @@ public class Main {
                         System.out.println("=============================================");
                         System.out.println("1 - Inserir Casa\n2 - Rolar Dados");
                         System.out.println("=============================================");
+                        System.out.print("Escolha uma opção: ");
+                        while (!scanner.hasNextInt()) {
+                            System.out.println("Entrada inválida. Digite apenas números.");
+                            scanner.nextLine();
+                            System.out.print("Escolha uma opção: ");
+                        }
                         opc2 = scanner.nextInt();
+
                         if (opc2 == 1) {
                             tabuleiro.jogarRodada(true);
                         } else if (opc2 == 2) {
                             tabuleiro.jogarRodada(false);
                         }
+
                         tabuleiro.atualizarTabuleiroVisual();
                         tabuleiro.imprimirTabuleiroVisual();
 
                         vencedor = tabuleiro.verificarVencedor();
                         if (vencedor != null) {
                             System.out.println("O jogador " + vencedor.getCor() + " venceu o jogo! Saia e Comece uma nova partida!");
-                            break; // Encerra o jogo
+                            break;
                         }
 
                     } while (true);
@@ -90,8 +131,15 @@ public class Main {
                     System.out.println(" - Qual o tipo do jogador ?");
                     System.out.println("   1 - Azarado\n   2 - Sortudo\n   3 - Normal ");
                     System.out.println("=============================================");
+                    System.out.print("Escolha uma opção: ");
+                    while (!scanner.hasNextInt()) {
+                        System.out.println("Entrada inválida. Digite apenas números.");
+                        scanner.nextLine();
+                        System.out.print("Escolha uma opção: ");
+                    }
                     opcTipo = scanner.nextInt();
                     scanner.nextLine();
+
                     System.out.println("A cor do jogador de novo tipo é: " + escolhaFeita);
                     Jogador jogador = null;
                     switch (opcTipo) {
