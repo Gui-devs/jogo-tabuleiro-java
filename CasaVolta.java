@@ -7,14 +7,14 @@ public class CasaVolta extends Casa{
         super(indiceCasa);
     }
     @Override
-    public void aplicarEfeito(Jogador jogador, List<Jogador> jogadores){
-            Scanner s = new Scanner(System.in);
-            System.out.println("Escolha um jogador para voltar ao inicio do jogo: ");
-            ArrayList<Jogador> outroJogadores = new ArrayList<>();
-            for (Jogador jogador2 : jogadores) {
-                if(!jogador2.equals(jogador)){
-                    outroJogadores.add(jogador2);
-                }
+     public void aplicarEfeito(Jogador jogador, List<Jogador> jogadores) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("\nCasa Restart!!!");
+        System.out.println("Escolha um jogador para voltar ao inicio do jogo: ");
+        ArrayList<Jogador> outroJogadores = new ArrayList<>();
+        for (Jogador jogador2 : jogadores) {
+            if (!jogador2.equals(jogador)) {
+                outroJogadores.add(jogador2);
             }
                 if(outroJogadores.isEmpty()){
                     System.out.println("Nao há outros jogadores para escolher");
@@ -28,6 +28,7 @@ public class CasaVolta extends Casa{
                 Jogador escolhido = outroJogadores.get(escolha - 1);
                 escolhido.setPosicao(0);
                 System.out.println("O jogador " + escolhido.getCor() + " foi escolhido e esta na posição zero");
+        }
     }
 }
     // 17 e 27:

@@ -11,13 +11,14 @@ public class Main {
         coresDisponiveis.addAll(Arrays.asList("Vermelho", "Verde", "Azul", "Amarelo", "Preto", "Branco"));
         int opcCor;
         boolean flagAd = true;
+        Jogador vencedor = null;
 
         do {
+            vencedor = tabuleiro.verificarVencedor();
             System.out.println("=============================================");
             if (tabuleiro.getJogadores().size() < 6 && flagAd) {
-                System.out.println("        1- Adicionar Jogador");
-            }
-            System.out.println("        2- Jogar");
+                System.out.println("        1- Adicionar Jogador");}
+            if(vencedor == null){System.out.println("        2- Jogar");}
             System.out.println("        3- Sair");
             System.out.println("=============================================");
             opc = scanner.nextInt();
@@ -72,9 +73,9 @@ public class Main {
                         tabuleiro.atualizarTabuleiroVisual();
                         tabuleiro.imprimirTabuleiroVisual();
 
-                        Jogador vencedor = tabuleiro.verificarVencedor();
+                        vencedor = tabuleiro.verificarVencedor();
                         if (vencedor != null) {
-                            System.out.println("O jogador " + vencedor.getCor() + " venceu o jogo! Comece uma nova partida!");
+                            System.out.println("O jogador " + vencedor.getCor() + " venceu o jogo! Saia e Comece uma nova partida!");
                             break; // Encerra o jogo
                         }
 
