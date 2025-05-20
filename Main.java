@@ -71,7 +71,7 @@ public class Main {
             tabuleiro.atualizarTabuleiroVisual();
             tabuleiro.imprimirTabuleiroVisual();
         }
-        } while (opc2 != 2);
+        } while (true);
     } else {
         String escolhaFeita = tabuleiro.getJogadores().get(5).getCor();
         tabuleiro.getJogadores().remove(tabuleiro.getJogadores().get(5));
