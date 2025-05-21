@@ -104,7 +104,7 @@ public class Main {
                             System.out.print("Escolha uma opção: ");
                         }
                         opc2 = scanner.nextInt();
-
+                        scanner.nextLine();
                         if (opc2 == 1) {
                             tabuleiro.jogarRodada(true);
                         } else if (opc2 == 2) {
@@ -116,7 +116,8 @@ public class Main {
 
                         vencedor = tabuleiro.verificarVencedor();
                         if (vencedor != null) {
-                            System.out.println("O jogador " + vencedor.getCor() + " venceu o jogo! Saia e Comece uma nova partida!");
+                            System.out.println("O jogador " + vencedor.getCor() + " venceu o jogo! Comece uma nova partida!");
+                            opc = 3;
                             break;
                         }
 

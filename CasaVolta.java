@@ -33,6 +33,7 @@ public class CasaVolta extends Casa {
             System.out.print("Digite o número do jogador escolhido: ");
             if (s.hasNextInt()) {
                 escolha = s.nextInt();
+                s.nextLine();
                 if (escolha >= 1 && escolha <= outroJogadores.size()) {
                     break;
                 } else {
@@ -47,6 +48,5 @@ public class CasaVolta extends Casa {
         Jogador escolhido = outroJogadores.get(escolha - 1);
         escolhido.setPosicao(0);
         System.out.println("O jogador " + escolhido.getCor() + " foi escolhido e está na posição zero.");
-        s.close();
     }
 }
